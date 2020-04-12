@@ -1,5 +1,6 @@
 from os import path, makedirs
-from flask import Flask
+from flask import Flask, redirect, url_for
+from .db import init_app
 
 
 def create_app():
@@ -14,10 +15,13 @@ def create_app():
     except OSError:
         pass
 
-    from . import db
-    db.init_app(app)
+    init_app(app)
 
     from . import blueprints
     app.register_blueprint(blueprints.bp)
+
+    @app.route('/')
+    def index():
+        return redirect(url_for('scheduler.index'))
 
     return app
