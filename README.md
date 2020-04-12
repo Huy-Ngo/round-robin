@@ -8,6 +8,3 @@ concentrating too much on one thing and forget doing other tasks.
 
 This is intentional for local usage. I would like to host it on a website
 too, but I don't have time for now.
-
-This scheduler is using Flask, and if you want to use it then go to their
-page and see it for yourself.
