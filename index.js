@@ -1,15 +1,27 @@
 // Check local storage and initialize if not initalized already
 if (!localStorage.hasOwnProperty('rr-scheduler')) {
-    stored_tasks = [
-        {id: 0, name: 'task test', elapsed: 10, total:30, status: false}
-    ]
+    stored_tasks = []
 } else {
     stored_tasks = JSON.parse(localStorage['rr-scheduler'])
 }
 
-var app = new Vue({ 
+const app = new Vue({ 
     el: '#app',
     data: {
-        tasks: stored_tasks
+        tasks: stored_tasks,
+        name: '',
+        duration: 0
+    },
+    methods: {
+        add_task: function(event) {
+            this.tasks.push({
+                name: this.name,
+                total: this.duration,
+                elapsed: 0,
+                status: false
+            })
+            localStorage.setItem('rr-scheduler', JSON.stringify(stored_tasks))
+            console.log('Successful.')
+        }
     }
 });

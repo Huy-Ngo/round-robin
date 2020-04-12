@@ -9,10 +9,11 @@
         <div id="app">
             <div id="new-task">
                 <label for="name">Task name</label>
-                <input id="name" type="text" name="name">
+                <input id="name" type="text" name="name" v-model="name">
                 <label for="duration">Duration (minutes)</label>
-                <input id="name" type="number" name="duration" min="30" max=240>
-                <button>Add task</button>
+                <input id="name" type="number" name="duration" v-model="duration"
+                        min="30" max=240>
+                <button v-on:click='add_task'>Add task</button>
             </div>
             <div id="task-list">
                 <div class="task" v-for="task in tasks">
