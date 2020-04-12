@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <title>Round robin scheduler</title>
+    </head>
+    <body>
+        
+        <div id="app">
+            <div id="new-task">
+                <label for="name">Task name</label>
+                <input id="name" type="text" name="name">
+                <label for="duration">Duration (minutes)</label>
+                <input id="name" type="number" name="duration" min="30" max=240>
+                <button>Add task</button>
+            </div>
+            <div id="task-list">
+                <div class="task" v-for="task in tasks">
+                    {{ task.name }} <br>
+                    {{ task.status ? 'Current task' : 'Pending' }} <br>
+                    {{ task.elapsed }}/{{ task.total }} minutes passed
+                </div>
+            </div>
+        </div>
+        
+        <script src="index.js"></script>
+    </body>
+</html>
