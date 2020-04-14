@@ -2,3 +2,7 @@ html, body {
     margin: 5px;
     padding: 0;
 }
+
+.btn {
+    width: 100%;
+}
