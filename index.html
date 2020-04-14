@@ -7,7 +7,7 @@
     <body>
         
         <div id="app">
-            <button id="run">Run</button>
+            <button id="toggle-status" v-on:click="toggle_status"> {{ status ? 'Stop' : 'Run' }} </button>
             <button id="reset" v-on:click="reset_all"> Reset </button>
             <div id="new-task">
                 <label for="name">Task name</label>

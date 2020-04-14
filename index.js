@@ -11,10 +11,15 @@ const app = new Vue({
         tasks: stored_tasks,
         name: '',
         duration: 60,
-        last: -1
+        last: -1,
+        status: false,
+        current: stored_tasks.filter(task => task.status = true)[0].id
     },
     methods: {
-        add_task: function(event) {
+        /**
+         * Add a new task to the queue
+         */
+        add_task: function() {
             for (task of this.tasks)
                 if (task.id > this.last) this.last = task.id
             console.log(this.last)
@@ -27,17 +32,34 @@ const app = new Vue({
             })
             localStorage.setItem('rr-scheduler', JSON.stringify(this.tasks))
         },
-        reset_all: function(event) {
+        /**
+         * Reset the scheduler, set everything to default value.
+         */
+        reset_all: function() {
             this.tasks = []
             this.last = -1
             this.duration = 60
             localStorage.setItem('rr-scheduler', '[]')
             console.log('Reset everything.')
         },
+        /**
+         * Remove a task when the remove button is clicked.
+         * @param {MouseEvent} event 
+         */
         remove_task: function(event) {
             task_id = event.target.id.split('-')[1]
             this.tasks = this.tasks.filter(task => task.id != task_id)
             localStorage.setItem('rr-scheduler', JSON.stringify(this.tasks))
+        },
+        /**
+         * Run or stop the scheduler.
+         */
+        toggle_status: function() {
+            this.status = !this.status
+            if (this.status) {
+                
+            }
+            else stop()
         }
     }
 });
