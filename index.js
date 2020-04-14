@@ -13,7 +13,8 @@ const app = new Vue({
         duration: 60,
         last: -1,
         status: false,
-        current: stored_tasks.filter(task => task.status = true)[0].id
+        current: stored_tasks.filter(task => task.status = true)[0],
+        counter: null
     },
     methods: {
         /**
@@ -57,9 +58,38 @@ const app = new Vue({
         toggle_status: function() {
             this.status = !this.status
             if (this.status) {
-                
+                if (this.current === undefined && this.tasks.length > 0){
+                    this.current = this.tasks[0]
+                } else if (this.tasks.length === 0) {
+                    alert('There is no task. Please add one.')
+                    this.status = !this.status
+                    return
+                }
+                app_object = this
+                this.counter = setInterval(function() {
+                    console.log(app_object.current.elapsed)
+                    app_object.current.elapsed++
+                    app_object.current.status = true
+                    if (app_object.current.elapsed >= app_object.current.total * 60) {
+                        // The task's session is ended, switch to next task
+                        app_object.current.elapsed = 0
+                        app_object.current.status = false
+                        current_idx = app_object.tasks.findIndex(task=>task.id === current.id)
+                        current_idx = (current_idx + 1) % app_object.tasks.length
+                        app_object.current = tasks[current_idx]
+                        app_object.current.status = true
+                    }
+                }, 1000)
+            } else {
+                if (!this.counter) {
+                    console.log('The scheduler is not running.')
+                    return
+                }
+                clearInterval(this.counter)
             }
-            else stop()
         }
+    },
+    filters: {
+        'floor': Math.floor
     }
 });

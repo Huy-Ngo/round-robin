@@ -22,7 +22,7 @@
                     # {{ task.id }} <br>
                     {{ task.name }} <br>
                     {{ task.status ? 'Current task' : 'Pending' }} <br>
-                    {{ task.elapsed }}/{{ task.total }} minutes passed <br>
+                    {{ task.elapsed/task.total | floor }}/{{ task.total }} minutes passed <br>
                     <!-- TODO: Editing is not essential, imo
                     <button v-bind:id="'edit-' + task.id">Edit</button>
                     -->
