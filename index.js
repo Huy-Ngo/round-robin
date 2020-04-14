@@ -85,6 +85,7 @@ const app = new Vue({
                     console.log('The scheduler is not running.')
                     return
                 }
+                localStorage.setItem('rr-scheduler', JSON.stringify(this.tasks))
                 clearInterval(this.counter)
             }
         }
