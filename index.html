@@ -12,48 +12,66 @@
     </head>
     <body>
         
-        <div id="app">
+        <div id="app" class="container">
             <div class="row">
-                <div class="col s6">
-                    <button type="button" id="toggle-status" v-on:click="toggle_status" class="btn waves-effect waves-light"> 
-                        <span v-if="status"> Stop <i class="material-icons">pause</i> </span>
-                        <span v-else> Run <i class="material-icons">play_arrow</i> </span>
+                <div class="col s2">
+                    <button type="button" id="toggle-status"
+                            v-on:click="toggle_status" class="btn waves-effect waves-light darken-3"
+                            v-bind:class="{ red: status, blue: !status }"> 
+                        <span v-if="status"> Stop <i class="material-icons left large">pause</i> </span>
+                        <span v-else> Run <i class="material-icons left large">play_arrow</i> </span>
                     </button>
                 </div>
-                <div class="col s6">
-                    <button type="button" id="reset" v-on:click="reset_all" class="btn waves-effect waves-light">
-                        Reset <i class="material-icons">replay</i>
+                <div class="col s2">
+                    <button type="button" id="reset" v-on:click="reset_all"
+                            class="btn waves-effect waves-light green darken-3">
+                        Reset <i class="material-icons left large">replay</i>
                     </button>
                 </div>
             </div>
             <form>
                 <div id="new-task" class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s5">
                         <input id="name" type="text" name="name" v-model="name" class="validate">
                         <label for="name">Task name</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s5">
                         <input id="duration" type="number" name="duration" v-model="duration"
                             min="30" max=240 class="validate">
                         <label for="duration">Duration (minutes)</label>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <button type="button" v-on:click='add_task' class="btn waves-effect waves-light">Add task</button>
+                    <div class="col s2">
+                        <button type="button" v-on:click='add_task' class="btn waves-effect waves-light black">
+                            <i class="material-icons large left">add</i>
+                            Add task
+                        </button>
                     </div>
                 </div>
             </form>
             <div id="task-list">
                 <div class="task" v-for="task in tasks">
-                    # {{ task.id }} <br>
-                    {{ task.name }} <br>
-                    {{ task.status ? 'Current task' : 'Pending' }} <br>
-                    {{ task.elapsed/task.total | floor }}/{{ task.total }} minutes passed <br>
-                    <!-- TODO: Editing is not essential, imo
-                    <button v-bind:id="'edit-' + task.id">Edit</button>
-                    -->
-                    <button v-bind:id="'remove-' + task.id" v-on:click="remove_task">Remove</button>
+                    <div class="card" v-bind:class="{'teal lighten-2': task.status}">
+                        <div class="card-content row">
+                            <div class="col s10">
+                                <span class="card-title">
+                                    {{ task.name }} # {{ task.id }}
+                                    <span class="new badge red" data-badge-caption="current"
+                                        v-if="task.status"></span>
+                                    <span class="new badge blue" data-badge-caption="pending" v-else></span>
+                                </span>
+                                {{ task.elapsed/task.total | floor }}/{{ task.total }} minutes passed <br>
+                            </div>
+                            <div class="col s2">
+                                <!-- TODO: Editing is not essential, imo
+                                    <button v-bind:id="'edit-' + task.id">Edit</button>
+                                    -->
+                                <button v-bind:id="'remove-' + task.id" v-on:click="remove_task"
+                                    class="btn-floating btn-large waves-effect waves-light red remove">
+                                    <i class="material-icons large left">delete</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
