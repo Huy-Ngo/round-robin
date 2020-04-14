@@ -7,6 +7,8 @@
     <body>
         
         <div id="app">
+            <button id="run">Run</button>
+            <button id="reset" v-on:click="reset_all"> Reset </button>
             <div id="new-task">
                 <label for="name">Task name</label>
                 <input id="name" type="text" name="name" v-model="name">
@@ -17,9 +19,14 @@
             </div>
             <div id="task-list">
                 <div class="task" v-for="task in tasks">
+                    # {{ task.id }} <br>
                     {{ task.name }} <br>
                     {{ task.status ? 'Current task' : 'Pending' }} <br>
-                    {{ task.elapsed }}/{{ task.total }} minutes passed
+                    {{ task.elapsed }}/{{ task.total }} minutes passed <br>
+                    <!-- TODO: Editing is not essential, imo
+                    <button v-bind:id="'edit-' + task.id">Edit</button>
+                    -->
+                    <button v-bind:id="'remove-' + task.id">Remove</button>
                 </div>
             </div>
         </div>
