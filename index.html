@@ -26,7 +26,7 @@
                     <!-- TODO: Editing is not essential, imo
                     <button v-bind:id="'edit-' + task.id">Edit</button>
                     -->
-                    <button v-bind:id="'remove-' + task.id">Remove</button>
+                    <button v-bind:id="'remove-' + task.id" v-on:click="remove_task">Remove</button>
                 </div>
             </div>
         </div>

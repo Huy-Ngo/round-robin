@@ -26,15 +26,18 @@ const app = new Vue({
                 status: false
             })
             localStorage.setItem('rr-scheduler', JSON.stringify(this.tasks))
-            console.log('Successful.')
         },
         reset_all: function(event) {
-            stored_tasks = []
             this.tasks = []
             this.last = -1
             this.duration = 60
             localStorage.setItem('rr-scheduler', '[]')
             console.log('Reset everything.')
+        },
+        remove_task: function(event) {
+            task_id = event.target.id.split('-')[1]
+            this.tasks = this.tasks.filter(task => task.id != task_id)
+            localStorage.setItem('rr-scheduler', JSON.stringify(this.tasks))
         }
     }
 });
