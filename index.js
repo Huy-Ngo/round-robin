@@ -13,7 +13,7 @@ const app = new Vue({
         duration: 60,
         last: -1,
         status: false,
-        current: stored_tasks.filter(task => task.status = true)[0],
+        current: stored_tasks.filter(task => task.status === true)[0],
         counter: null
     },
     methods: {
@@ -79,6 +79,7 @@ const app = new Vue({
                         app_object.current = tasks[current_idx]
                         app_object.current.status = true
                     }
+                    localStorage.setItem('rr-scheduler', JSON.stringify(app_object.tasks))
                 }, 1000)
             } else {
                 if (!this.counter) {
