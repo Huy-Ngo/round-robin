@@ -67,16 +67,15 @@ const app = new Vue({
                 }
                 app_object = this
                 this.counter = setInterval(function() {
-                    console.log(app_object.current.elapsed)
                     app_object.current.elapsed++
                     app_object.current.status = true
                     if (app_object.current.elapsed >= app_object.current.total * 60) {
                         // The task's session is ended, switch to next task
                         app_object.current.elapsed = 0
                         app_object.current.status = false
-                        current_idx = app_object.tasks.findIndex(task=>task.id === current.id)
+                        current_idx = app_object.tasks.findIndex(task=>task.id === app_object.current.id)
                         current_idx = (current_idx + 1) % app_object.tasks.length
-                        app_object.current = tasks[current_idx]
+                        app_object.current = app_object.tasks[current_idx]
                         app_object.current.status = true
                     }
                     localStorage.setItem('rr-scheduler', JSON.stringify(app_object.tasks))
